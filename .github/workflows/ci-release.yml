@@ -27,7 +27,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: "17"
           cache: gradle
 
       - name: Set up Gradle
@@ -76,20 +76,43 @@ jobs:
         shell: bash
         env:
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          ALIAS: ${{ secrets.ALIAS }}
+          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           set -e
 
-          if [ -z "$SIGNING_KEY" ]; then
-            echo "SIGNING_KEY secret is not configured."
-            exit 1
+          KEYSTORE="$RUNNER_TEMP/key-chipstrap.jks"
+
+          if [ -n "$SIGNING_KEY" ]; then
+            echo "Using provided SIGNING_KEY secret."
+            printf "%s" "$SIGNING_KEY" | base64 --decode > "$KEYSTORE"
+            echo "ALIAS=${ALIAS}" >> "$GITHUB_ENV"
+            echo "KEY_STORE_PASSWORD=${KEY_STORE_PASSWORD}" >> "$GITHUB_ENV"
+            echo "KEY_PASSWORD=${KEY_PASSWORD}" >> "$GITHUB_ENV"
+          else
+            echo "No SIGNING_KEY secret found. Auto-generating self-signed keystore..."
+            AUTO_ALIAS="chipstrap"
+            AUTO_PASS="chipstrap123"
+
+            keytool -genkeypair \
+              -v \
+              -keystore "$KEYSTORE" \
+              -alias "$AUTO_ALIAS" \
+              -keyalg RSA \
+              -keysize 2048 \
+              -validity 10000 \
+              -storepass "$AUTO_PASS" \
+              -keypass "$AUTO_PASS" \
+              -dname "CN=chip-strap, OU=Development, O=chip-strap, L=Unknown, ST=Unknown, C=US"
+
+            echo "ALIAS=$AUTO_ALIAS" >> "$GITHUB_ENV"
+            echo "KEY_STORE_PASSWORD=$AUTO_PASS" >> "$GITHUB_ENV"
+            echo "KEY_PASSWORD=$AUTO_PASS" >> "$GITHUB_ENV"
           fi
 
-          KEYSTORE="$RUNNER_TEMP/key-chevstrap.jks"
-
-          printf '%s' "$SIGNING_KEY" | base64 --decode > "$KEYSTORE"
-
           if [ ! -s "$KEYSTORE" ]; then
-            echo "Failed to create keystore."
+            echo "Failed to create or generate keystore."
             exit 1
           fi
 
@@ -97,27 +120,8 @@ jobs:
 
       - name: Sign Release APK
         shell: bash
-        env:
-          ALIAS: ${{ secrets.ALIAS }}
-          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           set -e
-
-          if [ -z "$ALIAS" ]; then
-            echo "ALIAS secret is not configured."
-            exit 1
-          fi
-
-          if [ -z "$KEY_STORE_PASSWORD" ]; then
-            echo "KEY_STORE_PASSWORD secret is not configured."
-            exit 1
-          fi
-
-          if [ -z "$KEY_PASSWORD" ]; then
-            echo "KEY_PASSWORD secret is not configured."
-            exit 1
-          fi
 
           shopt -s nullglob
 
@@ -168,7 +172,7 @@ jobs:
       - name: Upload Release APK
         uses: actions/upload-artifact@v6
         with:
-          name: Chevstrap (Release)
+          name: chip-strap (Release)
           path: app/build/outputs/apk/release/*.apk
           if-no-files-found: error
           retention-days: 14

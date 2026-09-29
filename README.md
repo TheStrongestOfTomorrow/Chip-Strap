@@ -13,12 +13,8 @@
 [![Downloads (Latest)][badge-repo-downloads]][repo-releases]
 [![Version][badge-repo-latest]][repo-latest]
 [![Stars][badge-repo-stars]][repo-stargazer]
-[![Discord][badge-discord]][discord-invite]
 
 chip-strap is a third-party Android launcher for Roblox, specifically designed for Android and based on [Bloxstrap](https://github.com/bloxstraplabs/bloxstrap).
-
-Would you like to join our community server?
-[Discord Server](https://discord.gg/2UcmM842h4)
 
 ----
 
@@ -26,8 +22,7 @@ Would you like to join our community server?
 
 ## Features
 
-- **FastFlags (FFlags) Editor**: Easily manage, view, add, edit, and remove custom Roblox FastFlags configurations.
-- A practical Discord Rich Presence feature that lets your friends know which Roblox game you're currently playing. However, it uses a Discord Gateway connection, **Use this at your own risk.**
+- **FastFlags (FFlags) Editor**: Easily manage, view, add, edit, and remove custom Roblox FastFlags configurations with Shizuku or local app storage options.
 - See where your server is currently located (via [ipinfo.io](https://ipinfo.io/) API).
 - Game History lets you view games you've previously played and return to the same Roblox server, unless the server has expired, is no longer available, or is a reserved server that cannot be rejoined.
 
@@ -70,19 +65,16 @@ A: No. As long as you have never used exploits, including modified Roblox client
 
 #### Q: Does chip-strap require root access?
 
-A: No. chip-strap does not require root access and works on non-rooted Android devices. In fact, Roblox itself does not allow rooted or jailbroken devices, so rooting your device is not required or recommended for using chip-strap. You can read more about this in [Roblox's Anti-cheat Messages.](https://en.help.roblox.com/hc/en-us/articles/24275616578708-Anti-cheat-Messages)
+A: No. chip-strap does not require root access and works on non-rooted Android devices. You can optionally use Shizuku to apply FastFlags directly to Roblox app folders if preferred. You can read more about this in [Roblox's Anti-cheat Messages.](https://en.help.roblox.com/hc/en-us/articles/24275616578708-Anti-cheat-Messages)
 
 [badge-repo-license]: https://img.shields.io/github/license/TheStrongestOfTomorrow/Chip-Strap?style=flat-square&color=28BC88
 [badge-repo-downloads]: https://img.shields.io/github/downloads/TheStrongestOfTomorrow/Chip-Strap/latest/total?style=flat-square&color=28BC88
 [badge-repo-downloads-total]: https://img.shields.io/github/downloads/TheStrongestOfTomorrow/Chip-Strap/total?style=flat-square&color=28BC88
 [badge-repo-latest]: https://img.shields.io/github/v/release/TheStrongestOfTomorrow/Chip-Strap?style=flat-square&color=28BC88
 [badge-repo-stars]: https://img.shields.io/github/stars/TheStrongestOfTomorrow/Chip-Strap?style=flat-square&color=28BC88
-[badge-discord]: https://img.shields.io/discord/1529741126662225971?style=flat-square&logo=discord&logoColor=white&logoSize=auto&label=discord&color=4d3dff
 
 [repo-license]: https://github.com/TheStrongestOfTomorrow/Chip-Strap/blob/main/LICENSE
 [repo-actions]: https://github.com/TheStrongestOfTomorrow/Chip-Strap/actions
 [repo-releases]: https://github.com/TheStrongestOfTomorrow/Chip-Strap/releases
 [repo-latest]: https://github.com/TheStrongestOfTomorrow/Chip-Strap/releases/latest
 [repo-stargazer]: https://github.com/TheStrongestOfTomorrow/Chip-Strap/stargazers
-
-[discord-invite]: https://discord.com/invite/2UcmM842h4
